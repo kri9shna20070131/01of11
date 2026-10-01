@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..500,0..100&family=Inter:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: #f2efe6;
+}
+
+.font-fraunces { font-family: "Fraunces", serif; }
+.font-inter { font-family: "Inter", sans-serif; }
+
+.video-wrap {
+  --mx: 0;
+  --my: 0;
+  transform-origin: center center;
+  transition: none;
+}
+
+.morpho-sheen {
+  background:
+    radial-gradient(
+      60% 60% at calc(50% + var(--mx, 0) * 20%) calc(45% + var(--my, 0) * 20%),
+      rgba(46, 107, 255, 0.16),
+      transparent 60%
+    );
+  mix-blend-mode: screen;
+}
+
+.soft-scrim {
+  background: linear-gradient(
+    to top,
+    rgba(247,244,236,0.92) 0%,
+    rgba(247,244,236,0.5) 28%,
+    rgba(247,244,236,0) 54%
+  );
+}
+
+.liquid-glass {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255,255,255,0.35);
+  background-blend-mode: luminosity;
+  -webkit-backdrop-filter: blur(8px) saturate(1.15);
+  backdrop-filter: blur(8px) saturate(1.15);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.6),
+    0 1px 20px rgba(46,107,255,0.08);
+}
+
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.9) 0%,
+    rgba(46,107,255,0.4) 30%,
+    rgba(255,255,255,0) 55%,
+    rgba(46,107,255,0.35) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.morpho-text {
+  background: linear-gradient(
+    105deg,
+    #2e6bff 0%,
+    #57c8ff 26%,
+    #8ad0ff 50%,
+    #2e6bff 74%,
+    #1741b8 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: morphoShift 10s ease-in-out infinite;
+}
+
+.paper-letter {
+  background:
+    radial-gradient(circle at 15% 12%, rgba(255,255,255,.8), transparent 25%),
+    linear-gradient(105deg, #faf7ef 0%, #f5f0e4 100%);
+  color: #262522;
+  border: 1px solid rgba(95, 87, 72, .16);
+}
+
+.paper-letter::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: .28;
+  background-image:
+    radial-gradient(rgba(80,70,50,.16) .55px, transparent .55px);
+  background-size: 7px 7px;
+  mix-blend-mode: multiply;
+}
+
+.animate-blur-fade-up {
+  opacity: 0;
+  animation: blurFadeUp 1s ease-out forwards;
+}
+
+@keyframes blurFadeUp {
+  from {
+    opacity: 0;
+    filter: blur(20px);
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes morphoShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .video-wrap { transform: scale(1.03) !important; }
+  .morpho-sheen {
+    background:
+      radial-gradient(60% 60% at 50% 45%, rgba(46,107,255,.12), transparent 60%);
+  }
+  .morpho-text { animation: none; }
+  .animate-blur-fade-up {
+    animation-duration: .7s;
+  }
+}
+
+
+/* --- Aged manuscript letter --- */
+.paper-letter {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 12% 8%, rgba(255,255,255,.85), transparent 26%),
+    radial-gradient(ellipse at 88% 92%, rgba(111,77,38,.12), transparent 30%),
+    radial-gradient(ellipse at 50% 50%, rgba(255,250,234,.72), transparent 70%),
+    linear-gradient(105deg, #eee3ca 0%, #f7f0dd 22%, #f4ecd8 76%, #e9ddc2 100%);
+  border: 0;
+  box-shadow:
+    0 28px 70px rgba(34, 27, 17, .35),
+    0 8px 18px rgba(34, 27, 17, .14),
+    inset 0 0 28px rgba(86, 58, 29, .16),
+    inset 0 0 4px rgba(65, 44, 24, .32);
+  clip-path: polygon(
+    1.2% 0%, 8% .7%, 16% 0%, 25% .8%, 35% .1%, 45% .7%, 56% 0%,
+    67% .6%, 77% 0%, 88% .7%, 98.5% 0%, 100% 7%, 99.3% 16%,
+    100% 25%, 99.1% 35%, 100% 45%, 99.3% 56%, 100% 67%, 99% 77%,
+    100% 88%, 99% 98%, 91% 99.2%, 82% 100%, 72% 99.1%, 62% 100%,
+    51% 99.2%, 41% 100%, 31% 99.1%, 21% 100%, 10% 99.2%, 1% 100%,
+    0% 91%, .8% 81%, 0% 71%, .8% 61%, 0% 50%, .7% 40%, 0% 29%,
+    .8% 19%, 0% 9%
+  );
+}
+
+.paper-letter::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 10px;
+  border: 1px solid rgba(105, 78, 45, .18);
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 7% 18%, rgba(84,57,28,.18) 0 1px, transparent 2px),
+    radial-gradient(circle at 91% 72%, rgba(84,57,28,.13) 0 1px, transparent 2px),
+    radial-gradient(circle at 23% 91%, rgba(84,57,28,.10) 0 1px, transparent 2px);
+  opacity: .65;
+}
+
+.paper-letter::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  inset: 0;
+  box-shadow:
+    inset 0 0 18px rgba(83, 56, 29, .28),
+    inset 0 0 52px rgba(104, 70, 31, .11);
+  background:
+    linear-gradient(90deg, rgba(73,48,22,.13), transparent 8%, transparent 92%, rgba(73,48,22,.12)),
+    linear-gradient(0deg, rgba(73,48,22,.14), transparent 8%, transparent 92%, rgba(73,48,22,.11));
+  mix-blend-mode: multiply;
+}
+
+.paper-letter .letter-top {
+  position: relative;
+}
+
+.paper-letter .letter-top::after {
+  content: "✦";
+  position: absolute;
+  left: 50%;
+  bottom: -11px;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  background: #f3ead5;
+  color: #8c785a;
+  font-size: 10px;
+}
+
+.wax-seal {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #f5e9d0;
+  font-family: "Fraunces", serif;
+  font-size: 19px;
+  transform: rotate(-7deg);
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255,255,255,.24), transparent 18%),
+    radial-gradient(circle at 50% 50%, #9d3032 0%, #792529 62%, #5c1e23 100%);
+  box-shadow:
+    inset 2px 2px 5px rgba(255,255,255,.12),
+    inset -3px -4px 7px rgba(43,8,10,.32),
+    0 3px 7px rgba(54,26,20,.2);
+}
+
+@media (max-width: 640px) {
+  .paper-letter {
+    max-height: 88vh;
+    padding-left: 1.35rem;
+    padding-right: 1.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paper-letter {
+    transition: none;
+  }
+}
